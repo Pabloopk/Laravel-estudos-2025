@@ -649,11 +649,3 @@ npm start
 O frontend estará disponível em: `http://localhost:3000`
 
 ---
-
-## Conclusão
-
-Agora você tem uma aplicação full stack funcional utilizando Laravel no backend e React.js no frontend. Essa estrutura pode ser expandida para projetos mais complexos.
-
-Para mais informações:
-- [Documentação Laravel](https://laravel.com/docs)
-- [Documentação React](https://reactjs.org/docs)
