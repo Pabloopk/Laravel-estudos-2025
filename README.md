@@ -646,6 +646,5 @@ export default App;
 npm start
 ```
 
-O frontend estará disponível em: `http://localhost:3000`
 
 ---
