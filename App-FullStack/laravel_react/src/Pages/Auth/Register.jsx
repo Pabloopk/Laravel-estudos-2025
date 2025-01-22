@@ -1,35 +1,37 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../Context/AppContext";
 
-export default function Register(){
+export default function Register() {
+  const { setToken } = useContext(AppContext);
+  const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        name:  "",
-        email: "",
-        password:"",
-        password_confirmation: "",
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  async function handleRegister(e) {
+    e.preventDefault();
+    const res = await fetch("/api/register", {
+      method: "post",
+      body: JSON.stringify(formData),
     });
 
-    const [errors, setErrors] = useState({
+    const data = await res.json();
 
-    })
-
-    async function handleRegister(e){
-        e.preventDefault()
-        const res = await fetch('/api/register', {
-            method: "post",
-            body: JSON.stringify(formData),
-        });
-
-        const data = await res.jason()
-
-        if (data.error) {
-            setErrors(data.errors)
-        } else {
-            console.log(data);
-        }
-
-        console.log(data);
+    if (data.errors) {
+      setErrors(data.errors);
+    } else {
+      localStorage.setItem("token", data.token);
+      setToken(data.token);
+      navigate("/");
     }
+  }
 
     return(
         <>
@@ -44,7 +46,7 @@ export default function Register(){
                             )
                         }       
                      />
-                     {errors.name && <p className="error">{errors.name}</p>}
+                     {errors.title && <p className="error">{errors.title[0]}</p>}
                 </div>
                 <div>
                     <input type="text" placeholder="Email"
@@ -54,6 +56,7 @@ export default function Register(){
                             )
                         }     
                      />
+                     {errors.title && <p className="error">{errors.email[0]}</p>}
                 </div>
                 <div>
                     <input type="password" placeholder="Senha"
@@ -63,6 +66,7 @@ export default function Register(){
                             )
                         }     
                      />
+                     {errors.title && <p className="error">{errors.password[0]}</p>}
                 </div>
                 <div>
                     <input type="password" placeholder="Confirme a Senha" 
