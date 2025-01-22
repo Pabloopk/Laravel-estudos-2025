@@ -9,9 +9,13 @@ export default function Register(){
         password_confirmation: '',
     })
 
-    function handleRegister(e){
+    async function handleRegister(e){
         e.preventDefault()
-        
+        const res = await fetch('/api/register', {
+            method: "post",
+            body: JSON.stringify(formData),
+        });
+
         console.log(formData);
     }
 
@@ -21,18 +25,41 @@ export default function Register(){
             
             <form onSubmit={handleRegister} className="w-1/2 m-auto space-y-6">
                 <div>
-                    <input type="text" placeholder="Nome" value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}       
+                    <input type="text" placeholder="Nome" 
+                        value={formData.name}
+                        onChange={(e) => setFormData( 
+                            {...formData, name: e.target.value}
+                            )
+                        }       
                      />
                 </div>
                 <div>
-                    <input type="text" placeholder="Email" />
+                    <input type="text" placeholder="Email"
+                            value={formData.email}
+                                onChange={(e) => setFormData( 
+                                {...formData, email: e.target.value}
+                            )
+                        }     
+                     />
                 </div>
                 <div>
-                    <input type="password" placeholder="Senha" />
+                    <input type="password" placeholder="Senha"
+                            value={formData.password}
+                                onChange={(e) => setFormData( 
+                                {...formData, password: e.target.value}
+                            )
+                        }     
+                     />
                 </div>
                 <div>
-                    <input type="password" placeholder="Confirme a Senha" />
+                    <input type="password" placeholder="Confirme a Senha" 
+                            value={formData.password_confirmation}
+                            onChange={(e) => setFormData( 
+                            {...formData, password_confirmation: e.target.value}
+                            )
+                        }     
+
+                    />
                 </div>
 
                <div className="primary-btn">
