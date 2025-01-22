@@ -32,7 +32,6 @@ export default function Register() {
       navigate("/");
     }
   }
-
     return(
         <>
             <h1 className="title">Registre Sua Nova Conta</h1>
@@ -46,7 +45,7 @@ export default function Register() {
                             )
                         }       
                      />
-                     {errors.title && <p className="error">{errors.title[0]}</p>}
+                     {errors.name && <p className="error">{errors.name[0]}</p>}
                 </div>
                 <div>
                     <input type="text" placeholder="Email"
@@ -56,7 +55,7 @@ export default function Register() {
                             )
                         }     
                      />
-                     {errors.title && <p className="error">{errors.email[0]}</p>}
+                     {errors.email && <p className="error">{errors.email[0]}</p>}
                 </div>
                 <div>
                     <input type="password" placeholder="Senha"
@@ -66,7 +65,7 @@ export default function Register() {
                             )
                         }     
                      />
-                     {errors.title && <p className="error">{errors.password[0]}</p>}
+                     {errors.password && <p className="error">{errors.password[0]}</p>}
                 </div>
                 <div>
                     <input type="password" placeholder="Confirme a Senha" 
