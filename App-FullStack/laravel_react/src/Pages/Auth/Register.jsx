@@ -3,10 +3,14 @@ import { useState } from "react";
 export default function Register(){
 
     const [formData, setFormData] = useState({
-        name:  '',
-        email: '',
-        password:'',
-        password_confirmation: '',
+        name:  "",
+        email: "",
+        password:"",
+        password_confirmation: "",
+    });
+
+    const [errors, setErrors] = useState({
+
     })
 
     async function handleRegister(e){
@@ -16,7 +20,15 @@ export default function Register(){
             body: JSON.stringify(formData),
         });
 
-        console.log(formData);
+        const data = await res.jason()
+
+        if (data.error) {
+            setErrors(data.errors)
+        } else {
+            console.log(data);
+        }
+
+        console.log(data);
     }
 
     return(
@@ -32,6 +44,7 @@ export default function Register(){
                             )
                         }       
                      />
+                     {errors.name && <p className="error">{errors.name}</p>}
                 </div>
                 <div>
                     <input type="text" placeholder="Email"
