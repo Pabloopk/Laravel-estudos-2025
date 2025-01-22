@@ -12,6 +12,8 @@ export default function Layout(){
                         <Link to="/register" className="nav-link">Registre-se</Link>
                         <Link to="/login" className="nav-link">Entrar</Link>
                     </div>
+
+                    
                 </nav>
             </header>
             <main>
