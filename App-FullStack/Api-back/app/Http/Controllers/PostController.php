@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller implements HasMiddleware
@@ -16,12 +16,14 @@ class PostController extends Controller implements HasMiddleware
             new Middleware('auth:sanctum', except: ['index', 'show'])
         ];
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Post::all();
+        return Post::with('user')->latest()->get();
+        // return Post::all();
     }
 
     /**
@@ -34,9 +36,10 @@ class PostController extends Controller implements HasMiddleware
             'body' => 'required'
         ]);
 
-       $post =  $request->user()->posts()->create($fields);
+        $post = $request->user()->posts()->create($fields);
 
-        return $post;
+        return ['post' => $post, 'user' => $post->user];
+        // return $post;
     }
 
     /**
@@ -44,8 +47,8 @@ class PostController extends Controller implements HasMiddleware
      */
     public function show(Post $post)
     {
-        //
-        return $post;
+        return ['post' => $post, 'user' => $post->user];
+        // return $post;
     }
 
     /**
@@ -53,16 +56,17 @@ class PostController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Post $post)
     {
-        //
         Gate::authorize('modify', $post);
+
         $fields = $request->validate([
             'title' => 'required|max:255',
             'body' => 'required'
         ]);
 
-       $post->update($fields);
+        $post->update($fields);
 
-        return $post;
+        return ['post' => $post, 'user' => $post->user];
+        // return $post;
     }
 
     /**
@@ -70,11 +74,10 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
-        //
         Gate::authorize('modify', $post);
 
         $post->delete();
 
-        return ['deletando este post'];
+        return ['message' => 'The post was deleted'];
     }
 }

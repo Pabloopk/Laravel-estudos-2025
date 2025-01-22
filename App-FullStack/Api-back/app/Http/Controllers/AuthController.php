@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,20 +10,20 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-      $fields = $request->validate([
-        'name' => 'required|max:255',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|confirmed'
-       ]);
+        $fields = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed'
+        ]);
 
-       $user = User::create($fields);
+        $user = User::create($fields);
 
-       $token = $user->createToken($request->name);
+        $token = $user->createToken($request->name);
 
-       return [
-        'user' => $user,
-        'token' => $token->plainTextToken
-       ];
+        return [
+            'user' => $user,
+            'token' => $token->plainTextToken
+        ];
     }
 
     public function login(Request $request)
@@ -36,21 +35,23 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password,
-         $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return [
-                'message' => 'Ta errado teu login.'
+                'errors' => [
+                    'email' => ['The provided credentials are incorrect.']
+                ]
             ];
-
+            // return [
+            //     'message' => 'The provided credentials are incorrect.'
+            // ];
         }
 
-            $token = $user->createToken($user->name);
+        $token = $user->createToken($user->name);
 
-            return [
+        return [
             'user' => $user,
             'token' => $token->plainTextToken
         ];
-
     }
 
     public function logout(Request $request)
@@ -58,8 +59,7 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
         return [
-            'message' => 'tu ta sainu truta'
+            'message' => 'You are logged out.'
         ];
     }
-
 }

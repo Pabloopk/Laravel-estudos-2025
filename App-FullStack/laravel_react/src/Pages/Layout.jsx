@@ -37,12 +37,12 @@ export default function Layout() {
 
           {user ? (
             <div className="flex items-center space-x-4">
-              <p className="text-slate-400 text-xs">Welcome back {user.name}</p>
+              <p className="text-slate-400 text-xs">Bem vindo {user.name}</p>
               <Link to="/create" className="nav-link">
                 Criar
               </Link>
               <form onSubmit={handleLogout}>
-                <button className="nav-link">Logout</button>
+                <button className="nav-link">Sair</button>
               </form>
             </div>
           ) : (

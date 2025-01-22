@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
         <>
-            <h1 className="title">Latest Posts</h1>
+            <h1 className="title">Meus Postes</h1>
          {posts.length > 0 ? (
         posts.map((post) => (
           <div
@@ -30,7 +30,7 @@ export default function Home() {
               <div>
                 <h2 className="font-bold text-2xl">{post.title}</h2>
                 <small className="text-xs text-slate-600">
-                  Created by {post.user.name} on{" "}
+                  Criando por{post.user.name} on{" "}
                   {new Date(post.created_at).toLocaleTimeString()}
                 </small>
               </div>
@@ -38,7 +38,7 @@ export default function Home() {
                 to={`/posts/${post.id}`}
                 className="bg-blue-500 text-white text-sm rounded-lg px-3 py-1"
               >
-                Ler mais
+                Ver
               </Link>
             </div>
             <p>{post.body}</p>

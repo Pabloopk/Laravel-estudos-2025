@@ -78,9 +78,7 @@ export default function Register() {
                     />
                 </div>
 
-               <div className="primary-btn">
-                Registre-se
-               </div>
+               <button className="primary-btn">Registre</button>
                 
             </form>
         </>
