@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../Context/AppContext";
+import { AppContext } from "../../Context/AppContext.jsx";
 
 export default function Register() {
   const { setToken } = useContext(AppContext);
