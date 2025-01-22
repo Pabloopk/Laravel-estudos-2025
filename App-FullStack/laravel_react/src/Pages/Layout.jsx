@@ -1,24 +1,66 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AppContext } from "../Context/AppContext";
 
-export default function Layout(){
+export default function Layout() {
+  const { user, token, setUser, setToken } = useContext(AppContext);
+  const navigate = useNavigate();
 
-    return(
-        <>
-            <header>
-                <nav>
-                    <Link to="/" className="nav-link">Home</Link>
+  async function handleLogout(e) {
+    e.preventDefault();
 
-                    <div className="space-x-4">
-                        <Link to="/register" className="nav-link">Registre-se</Link>
-                        <Link to="/login" className="nav-link">Entrar</Link>
-                    </div>
+    const res = await fetch("/api/logout", {
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-                    
-                </nav>
-            </header>
-            <main>
-                <Outlet/>
-            </main>
-        </>
-    );
+    const data = await res.json();
+    console.log(data);
+
+    if (res.ok) {
+      setUser(null);
+      setToken(null);
+      localStorage.removeItem("token");
+      navigate("/");
+    }
+  }
+
+  return (
+    <>
+      <header>
+        <nav>
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+
+          {user ? (
+            <div className="flex items-center space-x-4">
+              <p className="text-slate-400 text-xs">Welcome back {user.name}</p>
+              <Link to="/create" className="nav-link">
+                Criar
+              </Link>
+              <form onSubmit={handleLogout}>
+                <button className="nav-link">Logout</button>
+              </form>
+            </div>
+          ) : (
+            <div className="space-x-4">
+              <Link to="/register" className="nav-link">
+                Registrar-se
+              </Link>
+              <Link to="/login" className="nav-link">
+                Entrar
+              </Link>
+            </div>
+          )}
+        </nav>
+      </header>
+
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
 }
