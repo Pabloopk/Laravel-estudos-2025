@@ -645,6 +645,5 @@ export default App;
 ```bash
 npm start
 ```
-
-
+Meu Material para Estudos!
 ---
