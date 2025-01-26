@@ -1,6 +1,4 @@
-# Laravel README
-
-## O que é o Laravel?
+# O que é o Laravel?
 
 Laravel é um framework PHP open-source, robusto e elegante, criado para facilitar o desenvolvimento de aplicações web modernas. Ele segue o padrão MVC (Model-View-Controller) e oferece um conjunto abrangente de recursos para simplificar tarefas comuns, como autenticação, roteamento, cache, e muito mais.
 
