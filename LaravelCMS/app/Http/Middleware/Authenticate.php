@@ -11,7 +11,7 @@ class Authenticate extends Middleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-   protected function redurectTo($request)
+   protected function redirectTo($request)
    {
        if (! $request->expectsJson()) {
            return route('login');
