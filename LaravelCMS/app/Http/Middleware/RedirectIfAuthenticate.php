@@ -18,7 +18,7 @@ class RedirectIfAuthenticate
     {
         $guard = null; // or specify the guard you want to use
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return redirect()->route('admin');
         }
         return $next($request);
     }
