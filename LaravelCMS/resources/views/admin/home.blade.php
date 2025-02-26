@@ -10,11 +10,3 @@
     <p>Seja bem-vindo ao painel de controle do sistema.</p>
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-
-@section('js')
-    <script> alert('Hi!'); </script>
-@stop
