@@ -4,6 +4,10 @@
 
 
 ## Criação de blog
+- Blog: Recursos
+    - post: 
+    - User
+    - tag
 
 
 
