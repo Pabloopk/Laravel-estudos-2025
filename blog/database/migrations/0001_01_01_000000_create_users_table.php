@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('status')->default(true); // Assuming a status field for user activation
             $table->rememberToken();
-            $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
