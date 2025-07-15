@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -22,5 +23,10 @@ class Post extends Model
   public function author(): BelongsTo
   {
       return $this->belongsTo(User::class, 'authorId');
+  }
+
+  public function tags(): BelongsToMany
+  {
+      return $this->belongsToMany(Tag::class, 'posts_tag', 'postId', 'tagId');
   }
 }
