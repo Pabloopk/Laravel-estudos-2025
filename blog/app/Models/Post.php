@@ -10,6 +10,14 @@ class Post extends Model
 {
     const UPDATED_AT = 'updated_at';
     const CREATED_AT = 'created_at';
+    protected $fillable = [
+        'slug',
+        'authorId',
+        'title',
+        'content',
+        'cover',
+        'status',
+    ];
 
   public function author(): BelongsTo
   {
