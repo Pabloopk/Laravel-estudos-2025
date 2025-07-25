@@ -65,14 +65,8 @@ Você pode usar plataformas como:
 - [Medium](https://medium.com)
 - [Notion + Super](https://super.so)
 
-Ou desenvolver seu próprio blog usando HTML, CSS, JavaScript, React, Next.js etc.
+Ou desenvolver seu próprio blog usando Laravel-PHP
 
 ---
 
-## 📬 Contato
 
-Se você gostou deste conteúdo ou deseja colaborar, sinta-se à vontade para abrir uma issue ou enviar um pull request!
-
----
-
-**Feito com 💻 por [Seu Nome]**
