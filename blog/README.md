@@ -57,16 +57,6 @@ Com a interação em comentários, leitores podem trocar ideias, opiniões e sug
 
 ---
 
-## 🚀 Quer criar um blog?
 
-Você pode usar plataformas como:
-- [WordPress](https://wordpress.com)
-- [Blogger](https://www.blogger.com)
-- [Medium](https://medium.com)
-- [Notion + Super](https://super.so)
-
-Ou desenvolver seu próprio blog usando Laravel-PHP
-
----
 
 
