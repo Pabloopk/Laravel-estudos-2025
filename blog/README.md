@@ -58,5 +58,4 @@ Com a interação em comentários, leitores podem trocar ideias, opiniões e sug
 ---
 
 
-
-
+# Criação de APIs Com Laravel
