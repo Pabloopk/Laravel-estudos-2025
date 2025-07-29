@@ -61,3 +61,11 @@ Com a interação em comentários, leitores podem trocar ideias, opiniões e sug
 # Criação de APIs Com Laravel
 
 - planejamento de rotas
+- Autenticação;
+    - Registro;
+        - Nome;
+        - Email;
+        - Senha
+    - Login;
+    - Pagina de verificação;
+
