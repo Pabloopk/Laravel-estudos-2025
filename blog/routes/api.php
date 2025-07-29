@@ -25,6 +25,9 @@ Route::post('auth/signup', function (Request $request) {
     ]);
 
     $returnData= [];
-    $returnData['user'] = $user
-    $returnData['token'] = $user->createToken('auth_token')->plainTextToken;
+    $returnData['user'] = $user;
+    $returnData['token'] = $user->createToken($user->id.'-' . $user->email)->plainTextToken;
+
+    return $returnData;
+
 }); //->middleware('guest');
