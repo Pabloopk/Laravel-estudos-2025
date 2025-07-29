@@ -65,7 +65,8 @@ Com a interação em comentários, leitores podem trocar ideias, opiniões e sug
     - Registro;
         - Nome;
         - Email;
-        - Senha
+        - Senha.
+        <p>Devolver um token de autenticação junto com os dados do usuário.</p>
     - Login;
     - Pagina de verificação;
 
