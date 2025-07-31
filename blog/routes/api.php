@@ -9,7 +9,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('auth/signup', function (Request $request) {
+Route::post('/auth/signup', function (Request $request) {
     // Handle user registration logic here
     // For example, validate the request and create a new user
    // return response()->json(['message' => 'User registered successfully'], 201);
@@ -26,8 +26,36 @@ Route::post('auth/signup', function (Request $request) {
 
     $returnData= [];
     $returnData['user'] = $user;
-    $returnData['token'] = $user->createToken($user->id.'-' . $user->email)->plainTextToken;
+    $returnData['token'] = $user->createToken($user->id. '-' . $user->email)->plainTextToken;
 
     return $returnData;
 
 }); //->middleware('guest');
+Route::post('/auth/signin', function (Request $request){
+    $request->validate([
+        'email' => 'required|string|email',
+        'password' => 'required|string|min:6',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+
+    if (!$user || Hash::check($request->password, $user->password ?? ''))
+        {
+            return response()->json(['message' => 'Falha na autenticação'], 401);
+        }
+
+        $token = $user->createToken($user->id. '-' . $user->email)->plainTextToken;
+
+        return response()->json([
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+
+            ],
+            'token' => $token,
+        ]);
+
+
+});
