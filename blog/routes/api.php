@@ -12,26 +12,26 @@ Route::get('/user', function (Request $request) {
 Route::post('/auth/signup', function (Request $request) {
     // Handle user registration logic here
     // For example, validate the request and create a new user
-   // return response()->json(['message' => 'User registered successfully'], 201);
-   $request->validate([
-         'name' => 'required|string|max:255',
-         'email' => 'required|string|email|max:255|unique:users',
-         'password' => 'required|string|min:8|confirmed',
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6',
     ]);
-   $user = User::create([
+    $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
     ]);
 
-    $returnData= [];
+    $returnData = [];
     $returnData['user'] = $user;
-    $returnData['token'] = $user->createToken($user->id. '-' . $user->email)->plainTextToken;
+    $returnData['token'] = $user->createToken($user->id . '-' . $user->email)->plainTextToken;
 
     return $returnData;
 
 }); //->middleware('guest');
 Route::post('/auth/signin', function (Request $request){
+
     $request->validate([
         'email' => 'required|string|email',
         'password' => 'required|string|min:6',
@@ -40,7 +40,7 @@ Route::post('/auth/signin', function (Request $request){
     $user = User::where('email', $request->email)->first();
 
 
-    if (!$user || Hash::check($request->password, $user->password ?? ''))
+    if (!$user || !Hash::check($request->password, $user->password))
         {
             return response()->json(['message' => 'Falha na autenticação'], 401);
         }
@@ -54,8 +54,21 @@ Route::post('/auth/signin', function (Request $request){
                 'email' => $user->email,
 
             ],
-            'token' => $token,
+            'token' => $token
         ]);
 
-
 });
+
+Route::post('/auth/verify', function (Request $request) {
+    $user = $request->user();
+
+    return response()->json([
+        'user' => [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ],
+
+    ]);
+
+})->middleware('auth:sanctum');
