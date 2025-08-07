@@ -15,9 +15,9 @@ class PostSeeder extends Seeder
     {
         //
         Post::create([
-            'title' => 'Sample Post',
-            'slug' => 'sample-post',
-            'content' => 'This is a sample post content.',
+            'title' => 'Post 1',
+            'slug' => 'slug-teste',
+            'body' => 'This is a sample post content.',
             'cover' => 'sample-cover.jpg',
             'status' => 'published',
             'authorId' => 1, // Assuming user with ID 1 exists

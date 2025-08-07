@@ -59,7 +59,7 @@ Route::post('/auth/signin', function (Request $request){
 
 });
 
-Route::post('/auth/verify', function (Request $request) {
+Route::post('/auth/validate', function (Request $request) {
     $user = $request->user();
 
     return response()->json([
