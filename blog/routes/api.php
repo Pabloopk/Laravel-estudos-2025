@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -9,13 +10,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/auth/signup', function (Request $request) {
-}); //->middleware('guest');
+Route::prefix('auth')->group(function () {
 
-Route::post('/auth/signin', function (Request $request){
+Route::post('/auth/signup',[AuthController::class, 'signup']); //->middleware('guest');
+
+Route::post('/auth/signin', [AuthController::class, 'signup']);
+
+Route::post('/auth/validate', [AuthController::class, 'validate'])->middleware('auth:sanctum');
 });
-
-
-Route::post('/auth/validate', function (Request $request) {
-
-})->middleware('auth:sanctum');
