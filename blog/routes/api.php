@@ -12,9 +12,9 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
 
-Route::post('/auth/signup',[AuthController::class, 'signup']); //->middleware('guest');
+Route::post('/signup',[AuthController::class, 'signup']); //->middleware('guest');
 
-Route::post('/auth/signin', [AuthController::class, 'signup']);
+Route::post('/signin', [AuthController::class, 'signup']);
 
-Route::post('/auth/validate', [AuthController::class, 'validate'])->middleware('auth:sanctum');
+Route::post('/validate', [AuthController::class, 'validate'])->middleware('auth:sanctum');
 });
