@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Models\Post;
-use App\Models\User;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
@@ -20,4 +18,4 @@ Route::post('/signin', [AuthController::class, 'signup']);
 Route::post('/validate', [AuthController::class, 'validate'])->middleware('auth:sanctum');
 });
 
-Route::get('/posts', [Post::class, 'getPosts']);
+Route::get('/posts', [PostController::class, 'getPosts']);
