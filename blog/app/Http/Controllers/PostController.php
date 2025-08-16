@@ -21,7 +21,7 @@ class PostController extends Controller
                 'cover' => $post->cover,
                 'createdAt' => $post->created_at,
                 'authorName' => $post->author->name,
-                'tags' => $post->tags->pluck('name')->toArray(),
+                'tags' => $post->tags->implode('name', ', '),
                 'body' => $post->body,
                 'slug' => $post->slug,
             ];
