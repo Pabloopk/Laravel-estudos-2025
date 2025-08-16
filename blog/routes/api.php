@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,3 +19,5 @@ Route::post('/signin', [AuthController::class, 'signup']);
 
 Route::post('/validate', [AuthController::class, 'validate'])->middleware('auth:sanctum');
 });
+
+Route::get('/posts', [Post::class, 'getPosts']);
