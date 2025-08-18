@@ -23,7 +23,7 @@ class PostSeeder extends Seeder
         ]);
         Post::create([
             'title' => 'Post 2',
-            'slug' => 'slug-teste 2',
+            'slug' => 'slug2-teste',
             'body' => 'This is a sample post2 content.',
             'cover' => 'sample-cover.jpg',
             'status' => 'published',
@@ -31,7 +31,7 @@ class PostSeeder extends Seeder
         ]);
         Post::create([
             'title' => 'Post 3',
-            'slug' => 'slug-teste 3',
+            'slug' => 'slug3-teste',
             'body' => 'This is a sample post3 content.',
             'cover' => 'sample-cover.jpg',
             'status' => 'published',
@@ -39,7 +39,7 @@ class PostSeeder extends Seeder
         ]);
         Post::create([
             'title' => 'Post 4',
-            'slug' => 'slug-teste4',
+            'slug' => 'slug4-teste',
             'body' => 'This is a sample post4 content.',
             'cover' => 'sample-cover.jpg',
             'status' => 'published',

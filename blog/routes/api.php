@@ -19,3 +19,4 @@ Route::post('/validate', [AuthController::class, 'validate'])->middleware('auth:
 });
 
 Route::get('/posts', [PostController::class, 'getPosts']);
+Route::get('/posts/{slug}', [PostController::class, 'getPost']);
