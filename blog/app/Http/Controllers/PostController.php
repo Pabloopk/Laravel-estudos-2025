@@ -62,18 +62,47 @@ class PostController extends Controller
         ];
     }
 
-    public function getRelatedPosts(string $slug){
-        // busca o post pelo slug
-        $post = Post::where('slug', $slug)->first();
+   public function getRelatedPosts(string $slug)
+{
+    // 1) Busca o post pelo slug
+    $post = Post::where('slug', $slug)->first();
 
-        //se o post não existir retorna 404
-        if (!$post) {
-            return response()->json(['error' => '404 not found'], 404);
+    // 2) Se não existir, 404
+    if (!$post) {
+        return response()->json(['error' => '404 not found'], 404);
+    }
+
+    // 3) Pega os IDs das tags do post
+    $tagsList = $post->tags->pluck('id');
+
+    // 4) Busca posts que compartilham alguma das mesmas tags,
+
+    $relatedPosts = Post::where('id', '!=', $post->id)
+        ->whereHas('tags', function ($query) use ($tagsList) {
+            $query->whereIn('tags.id', $tagsList);
+        })
+        ->limit(5)
+        ->get();
+
+        $returnPostData = [];
+
+        foreach ($relatedPosts as $post) {
+            $returnPostData[] = [
+                'id' => $post->id,
+                'title' => $post->title,
+                'cover' => $post->cover,
+                'createdAt' => $post->created_at,
+                'authorName' => $post->author->name,
+                'tags' => $post->tags->implode('name', ', '),
+                'body' => $post->body,
+                'slug' => $post->slug,
+            ];
         }
 
-        // pega as tags do post
-         return  $post->tags->pluck('name');
-
-    }
+    // 5) Retorna como JSON (ou ajuste conforme sua necessidade)
+    return response()->json([
+        'posts' => $returnPostData
+    ]);
+}
 
 }
