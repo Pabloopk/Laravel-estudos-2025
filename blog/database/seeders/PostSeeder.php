@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Post;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -24,7 +23,7 @@ class PostSeeder extends Seeder
         ]);
         Post::create([
             'title' => 'Post 2',
-            'slug' => 'slug-teste',
+            'slug' => 'slug-teste 2',
             'body' => 'This is a sample post2 content.',
             'cover' => 'sample-cover.jpg',
             'status' => 'published',
@@ -32,7 +31,7 @@ class PostSeeder extends Seeder
         ]);
         Post::create([
             'title' => 'Post 3',
-            'slug' => 'slug-teste',
+            'slug' => 'slug-teste 3',
             'body' => 'This is a sample post3 content.',
             'cover' => 'sample-cover.jpg',
             'status' => 'published',
@@ -40,7 +39,7 @@ class PostSeeder extends Seeder
         ]);
         Post::create([
             'title' => 'Post 4',
-            'slug' => 'slug-teste',
+            'slug' => 'slug-teste4',
             'body' => 'This is a sample post4 content.',
             'cover' => 'sample-cover.jpg',
             'status' => 'published',
