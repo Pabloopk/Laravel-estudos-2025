@@ -20,3 +20,6 @@ Route::post('/validate', [AuthController::class, 'validate'])->middleware('auth:
 
 Route::get('/posts', [PostController::class, 'getPosts']);
 Route::get('/posts/{slug}', [PostController::class, 'getPost']);
+//posts relacionados
+
+Route::get('/posts/{slug}/related', [PostController::class, 'getRelatedPosts']);

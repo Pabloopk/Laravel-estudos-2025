@@ -15,11 +15,10 @@ class TagSeeder extends Seeder
     public function run(): void
     {
         //
-        $tag1 = Tag::create(['name' => 'Laravel']);
-        $tag2 = Tag::create(['name' => 'PHP']);
+        $tag1 = Tag::create(['name' => 'Laravel (tag1)']);
+        $tag2 = Tag::create(['name' => 'PHP (tag2)']);
+        $tag3 = Tag::create(['name' => 'JavaScript (tag3)']);
+        $tag4 = Tag::create(['name' => 'next.js (tag4)']);
 
-
-        $post = Post::first(); // Assuming you have at least one post
-        $post->tags()->attach([$tag1->id, $tag2->id]); // Attach tags to the first post
     }
 }

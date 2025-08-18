@@ -13,7 +13,7 @@ class PostSeeder extends Seeder
     public function run(): void
     {
         //
-        Post::create([
+        $post1 = Post::create([
             'title' => 'Post 1',
             'slug' => 'slug-teste',
             'body' => 'This is a sample post content.',
@@ -21,7 +21,8 @@ class PostSeeder extends Seeder
             'status' => 'published',
             'authorId' => 1, // Assuming user with ID 1 exists
         ]);
-        Post::create([
+        $post1->tags()->attach([1, 2]); // Attach tags to the first post
+        $post2 = Post::create([
             'title' => 'Post 2',
             'slug' => 'slug2-teste',
             'body' => 'This is a sample post2 content.',
@@ -29,7 +30,8 @@ class PostSeeder extends Seeder
             'status' => 'published',
             'authorId' => 1, // Assuming user with ID 1 exists
         ]);
-        Post::create([
+        $post2->tags()->attach([1, 3]); // Attach tags to the second post
+        $post3 = Post::create([
             'title' => 'Post 3',
             'slug' => 'slug3-teste',
             'body' => 'This is a sample post3 content.',
@@ -37,7 +39,9 @@ class PostSeeder extends Seeder
             'status' => 'published',
             'authorId' => 1, // Assuming user with ID 1 exists
         ]);
-        Post::create([
+
+        $post3->tags()->attach([1, 3]); // Attach tags to the third post
+        $post4 = Post::create([
             'title' => 'Post 4',
             'slug' => 'slug4-teste',
             'body' => 'This is a sample post4 content.',
@@ -45,5 +49,7 @@ class PostSeeder extends Seeder
             'status' => 'published',
             'authorId' => 1, // Assuming user with ID 1 exists
         ]);
+
+        $post4->tags()->attach([1, 2, 3, 4]); // Attach tags to the fourth post
     }
 }
