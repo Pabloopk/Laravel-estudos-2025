@@ -22,5 +22,29 @@ class PostSeeder extends Seeder
             'status' => 'published',
             'authorId' => 1, // Assuming user with ID 1 exists
         ]);
+        Post::create([
+            'title' => 'Post 2',
+            'slug' => 'slug-teste',
+            'body' => 'This is a sample post2 content.',
+            'cover' => 'sample-cover.jpg',
+            'status' => 'published',
+            'authorId' => 1, // Assuming user with ID 1 exists
+        ]);
+        Post::create([
+            'title' => 'Post 3',
+            'slug' => 'slug-teste',
+            'body' => 'This is a sample post3 content.',
+            'cover' => 'sample-cover.jpg',
+            'status' => 'published',
+            'authorId' => 1, // Assuming user with ID 1 exists
+        ]);
+        Post::create([
+            'title' => 'Post 4',
+            'slug' => 'slug-teste',
+            'body' => 'This is a sample post4 content.',
+            'cover' => 'sample-cover.jpg',
+            'status' => 'published',
+            'authorId' => 1, // Assuming user with ID 1 exists
+        ]);
     }
 }
