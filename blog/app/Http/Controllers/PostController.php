@@ -12,10 +12,12 @@ class PostController extends Controller
     {
         // Logic to retrieve posts
         // For example, you might fetch posts from a Post model
-        $posts = \App\Models\Post::all();
-        $returnData = [];
+        $posts_per_page = 2;
+
+        $posts = \App\Models\Post::paginate($posts_per_page);
+        $pagesPosts = [];
         foreach ($posts as $post) {
-            $returnData[] = [
+            $pagesPosts[] = [
                 'id' => $post->id,
                 'title' => $post->title,
                 'cover' => $post->cover,
@@ -27,7 +29,11 @@ class PostController extends Controller
             ];
         }
 
-        return $returnData;
+        return [
+            'pagesPosts' => $pagesPosts,
+            'page' => $posts->currentPage(),
+
+        ];
 
 
     }
