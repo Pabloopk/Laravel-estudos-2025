@@ -18,6 +18,7 @@ Route::post('/signin', [AuthController::class, 'signup']);
 Route::post('/validate', [AuthController::class, 'validate'])->middleware('auth:sanctum');
 });
 
+//rotas publicas
 Route::get('/posts', [PostController::class, 'getPosts']);
 Route::get('/posts/{slug}', [PostController::class, 'getPost']);
 //posts relacionados
