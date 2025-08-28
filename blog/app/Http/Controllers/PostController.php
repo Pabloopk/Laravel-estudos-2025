@@ -15,7 +15,7 @@ class PostController extends Controller
         // For example, you might fetch posts from a Post model
         $posts_per_page = 10;
 
-        $posts = Post::paginate($posts_per_page);
+        $posts = Post::where('status', 'PUBLISHED')->paginate($posts_per_page);
         $pagesPosts = [];
         foreach ($posts as $post) {
             $pagesPosts[] = [
