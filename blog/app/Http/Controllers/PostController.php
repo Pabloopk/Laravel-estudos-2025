@@ -65,7 +65,7 @@ class PostController extends Controller
    public function getRelatedPosts(string $slug)
 {
     // 1) Busca o post pelo slug
-    $post = Post::where('slug', $slug)->first();
+    $post = Post::where(['slug' => $slug, 'status' => 'PUBLISHED'])->first();
 
     // 2) Se não existir, 404
     if (!$post) {
