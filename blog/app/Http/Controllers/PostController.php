@@ -42,7 +42,7 @@ class PostController extends Controller
     public function getPost(string $slug)
     {
         // Logic to retrieve a single post by slug
-        $post = Post::where('slug', $slug)->first();
+        $post = Post::where(['slug', $slug, 'status' => 'PUBLISHED'])->first();
 
         if (!$post) {
             return response()->json(['error' => '404 not found'], 404);
