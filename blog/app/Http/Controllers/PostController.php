@@ -79,7 +79,7 @@ class PostController extends Controller
 
     $relatedPosts = Post::where('id', '!=', $post->id)
         ->whereHas('tags', function ($query) use ($tagsList) {
-            $query->whereIn('tags.id', $tagsList);
+            $query->whereIn('tags.id', $tagsList)->where('posts.status', 'PUBLISHED');
         })
         ->limit(5)
         ->get();
