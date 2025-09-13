@@ -35,7 +35,7 @@ class PostSeeder extends Seeder
             'title' => 'Post 3',
             'slug' => 'slug3-teste',
             'body' => 'This is a sample post3 content.',
-            'cover' => 'sample-cover.jpg',
+            'cover' => 'https://picsum.photos/200/300',
             'status' => 'DRAFT',
             'authorId' => 1, // Assuming user with ID 1 exists
         ]);
