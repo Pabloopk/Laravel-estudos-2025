@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -27,4 +28,6 @@ Route::get('/posts/{slug}/related', [PostController::class, 'getRelatedPosts']);
 
 //rotas privadas
 
-
+Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
+    Route::get('/posts', [AdminController::class, 'getPosts']);
+});
