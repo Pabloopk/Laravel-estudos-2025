@@ -7,4 +7,8 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     //
+    public function getPosts(Request $request) {
+        $user = $request->user();
+        dd($user);
+    }
 }
