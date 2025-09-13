@@ -24,3 +24,7 @@ Route::get('/posts/{slug}', [PostController::class, 'getPost']);
 //posts relacionados
 
 Route::get('/posts/{slug}/related', [PostController::class, 'getRelatedPosts']);
+
+//rotas privadas
+
+
