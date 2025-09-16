@@ -123,6 +123,11 @@ public function createPost(Request $request) {
     // Verifica se foi enviado um arquivo de capa
     if ($request->hasFile('cover')) {
         $file = $request->file('cover');
+        if (! $file->isValid()) {
+            return response()->json([
+                'error' => 'Invalid file upload'
+                ], 400);
+        }
 
         // Confere se a extensão do arquivo é válida (só imagens permitidas)
         if (!in_array($file->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
