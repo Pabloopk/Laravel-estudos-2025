@@ -156,6 +156,10 @@ public function createPost(Request $request) {
             $post->tags()->attach($tagModel->id);
         };
     }
+    // Retorna o post criado em formato JSON
+    return response()->json([
+        'post' => $post
+    ], 201);
 }
 
 
