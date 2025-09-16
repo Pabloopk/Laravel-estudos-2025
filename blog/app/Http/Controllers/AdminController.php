@@ -96,9 +96,13 @@ class AdminController extends Controller
             'body' => 'required|string',
             //'cover' => 'nullable|url',
             //'tags' => 'nullable|array',
-          //  'tags.*' => 'string|max:50',
+            'tags.*' => 'string|max:255',
             'status' => 'in:draft,published',
         ]);
+
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
      }
 
 }
