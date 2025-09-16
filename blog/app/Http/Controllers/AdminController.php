@@ -8,6 +8,7 @@ use App\Models\Post;
 
 // Importa a classe Request (para lidar com requisições HTTP)
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 // Declara a classe AdminController, que herda de Controller (controlador base do Laravel)
 class AdminController extends Controller
@@ -103,6 +104,9 @@ class AdminController extends Controller
         $post = new Post();
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+
+        //slg com base no titulo
+        $post->slug = Str::slug($post->title);
      }
 
 }
