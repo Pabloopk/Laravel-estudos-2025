@@ -113,8 +113,6 @@ public function createPost(Request $request) {
         'status' => 'in:draft,published', // status deve ser "draft" ou "published"
     ]);
 
-
-
     // Cria um novo objeto Post
     $post = new Post();
     $post->title = $request->input('title'); // define o título
