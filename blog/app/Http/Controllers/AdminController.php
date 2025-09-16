@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 // Importa o modelo Post (representa a tabela "posts" no banco de dados)
 use App\Models\Post;
-
+use App\Models\Tag;
 // Importa a classe Request (para lidar com requisições HTTP)
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -116,6 +116,8 @@ public function createPost(Request $request) {
     $post = new Post();
     $post->title = $request->input('title'); // define o título
     $post->body = $request->input('body'); // define o corpo do texto
+    $post->authorId = $user->id; // define o ID do autor como o usuário autenticado
+
 
     // Gera o slug baseado no título + timestamp para evitar duplicidade
     $post->slug = Str::slug($post->title). '-' . time();
@@ -143,6 +145,16 @@ public function createPost(Request $request) {
         $file->move(public_path('uploads'), $filename);
 
         $post->cover = env('APP_URL') . 'uploads/' . $filename; // Define a URL da capa
+    }
+    $post->save();
+
+    if ($request->has('tags')){
+        $tags = explode(',', $request->input('tags'));
+        foreach ($tags as $tag) {
+            $tag = trim($tag);
+            $tagModel = Tag::firstOrCreate(['name' => $tag]);
+            $post->tags()->attach($tagModel->id);
+        };
     }
 }
 
