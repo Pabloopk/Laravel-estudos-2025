@@ -89,6 +89,11 @@ class AdminController extends Controller
           return response()->json(['message' => 'Post deleted successfully'], 200);
      }
 
+     public function createPost(Request $request) {
+        $user = $request->user();
+
+     }
+
 }
 
 
