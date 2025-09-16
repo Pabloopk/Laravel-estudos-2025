@@ -106,7 +106,18 @@ class AdminController extends Controller
         $post->body = $request->input('body');
 
         //slg com base no titulo
-        $post->slug = Str::slug($post->title);
+        $post->slug = Str::slug($post->title). '-' . time();
+        // $post->authorId = $user->id;
+        // $post->status = $request->input('status', 'draft');
+        if ($request->hasFile('cover')) {
+            $file = $request->file('cover');
+                if (!in_array($file->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
+                    return response()->json(['error' => 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.'], 400);
+                }
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $filename);
+
+        }
      }
 
 }
