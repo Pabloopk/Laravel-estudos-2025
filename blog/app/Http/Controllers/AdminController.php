@@ -227,7 +227,6 @@ public function createPost(Request $request) {
                 if ($request->hasFile('cover')) {
                     $file = $request->file('cover');
 
-                    // --- Opção A: usando Storage (recomendado) ---
                     // Remove a antiga se existir e estiver no disco 'public'
                     if ($post->cover && Storage::disk('public')->exists($post->cover)) {
                         Storage::disk('public')->delete($post->cover);
@@ -240,7 +239,7 @@ public function createPost(Request $request) {
                     // Salva o caminho relativo (ex.: "uploads/123.jpg")
                     $post->cover = $path;
 
-                    // --- Opção B: se preferir manter compatível com seu createPost (descomente) ---
+
                     /*
                     $ext = $file->getClientOriginalExtension();
                     if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) {
