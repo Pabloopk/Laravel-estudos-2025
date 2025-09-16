@@ -194,13 +194,13 @@ public function createPost(Request $request) {
 
                 // Validação "parcial": só valida campos presentes (sometimes)
                 $validated = $request->validate([
-                    'title'            => 'sometimes|required|string|max:255',  // se enviado, é obrigatório e string até 255
-                    'body'             => 'sometimes|required|string',           // se enviado, é obrigatório
-                    'status'           => 'sometimes|in:draft,published',        // se enviado, deve ser um desses valores
-                    'cover'            => 'sometimes|file|mimes:jpg,jpeg,png,gif|max:5120', // até 5MB
-                    'tags'             => 'sometimes|array',                     // se enviado, deve ser array
-                    'tags.*'           => 'string|max:255',                      // cada item do array deve ser string
-                    'regenerate_slug'  => 'sometimes|boolean',                   // se true, regenera o slug ao trocar título
+                    'title' => 'sometimes|required|string|max:255',  // se enviado, é obrigatório e string até 255
+                    'body' => 'sometimes|required|string',           // se enviado, é obrigatório
+                    'status'=> 'sometimes|in:draft,published',        // se enviado, deve ser um desses valores
+                    'cover' => 'sometimes|file|mimes:jpg,jpeg,png,gif|max:5120', // até 5MB
+                    'tags' => 'sometimes|array',                     // se enviado, deve ser array
+                    'tags.*' => 'string|max:255',                      // cada item do array deve ser string
+                    'regenerate_slug' => 'sometimes|boolean',                   // se true, regenera o slug ao trocar título
                 ]);
 
                 // Atualiza o título (se foi enviado)
