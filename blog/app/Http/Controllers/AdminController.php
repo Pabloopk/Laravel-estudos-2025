@@ -91,7 +91,14 @@ class AdminController extends Controller
 
      public function createPost(Request $request) {
         $user = $request->user();
-
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            //'cover' => 'nullable|url',
+            //'tags' => 'nullable|array',
+          //  'tags.*' => 'string|max:50',
+            'status' => 'in:draft,published',
+        ]);
      }
 
 }
