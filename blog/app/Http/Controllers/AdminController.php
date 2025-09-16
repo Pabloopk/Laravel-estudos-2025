@@ -73,8 +73,21 @@ class AdminController extends Controller
                 'slug' => $post->slug,
             ]
         ];
-
     }
+    public function deletePost(string $slug, Request $request) {
+        $user  = $request->user();
+
+          // Logic to retrieve a single post by slug
+         $post = Post::where(['slug' => $slug, 'authorId' => $user->id])->first();
+
+          if (!$post) {
+                return response()->json(['error' => '404 not found'], 404);
+          }
+
+          $post->delete();
+
+          return response()->json(['message' => 'Post deleted successfully'], 200);
+     }
 
 }
 
