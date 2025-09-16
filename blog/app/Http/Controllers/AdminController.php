@@ -126,7 +126,9 @@ public function createPost(Request $request) {
 
         // Confere se a extensão do arquivo é válida (só imagens permitidas)
         if (!in_array($file->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
-            return response()->json(['error' => 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.'], 400);
+            return response()->json([
+                'error' => 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.'
+                ], 400);
         }
 
         // Cria um nome único para o arquivo baseado no timestamp
@@ -134,6 +136,8 @@ public function createPost(Request $request) {
 
         // Move o arquivo para a pasta "public/uploads"
         $file->move(public_path('uploads'), $filename);
+
+        $post->cover = env('APP_URL') . 'uploads/' . $filename; // Define a URL da capa
     }
 }
 
