@@ -112,11 +112,17 @@ public function createPost(Request $request) {
         'status' => 'in:draft,published', // status deve ser "draft" ou "published"
     ]);
 
+
+
     // Cria um novo objeto Post
     $post = new Post();
     $post->title = $request->input('title'); // define o título
     $post->body = $request->input('body'); // define o corpo do texto
     $post->authorId = $user->id; // define o ID do autor como o usuário autenticado
+
+        if (!$request->has('status')){
+            $post->status = 'DRAFT';
+        }
 
 
     // Gera o slug baseado no título + timestamp para evitar duplicidade
@@ -158,11 +164,18 @@ public function createPost(Request $request) {
     }
     // Retorna o post criado em formato JSON
     return response()->json([
-        'post' => $post
-    ], 201);
-}
-
-
+         'post' => [
+            'id' => $post->id, // ID do post
+            'title' => $post->title, // Título
+            'cover' => $post->cover, // Imagem de capa
+            'createdAt' => $post->created_at, // Data de criação
+            'authorName' => $post->author->name, // Nome do autor (relacionamento)
+            'tags' => $post->tags->implode('name', ', '), // Tags separadas por vírgula
+            'body' => $post->body, // Conteúdo
+            'slug' => $post->slug, // Slug do post
+        ]
+        ], 201);
+    }
 }
 
 
