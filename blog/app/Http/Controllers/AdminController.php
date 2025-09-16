@@ -50,4 +50,32 @@ class AdminController extends Controller
             'page' => $posts->currentPage(), // Página atual da paginação
         ];
     }
+
+    public function getPost(string $slug, Request $request) {
+      $user  = $request->user();
+
+        // Logic to retrieve a single post by slug
+       $post = Post::where(['slug' => $slug, 'authorId' => $user->id])->first();
+
+        if (!$post) {
+            return response()->json(['error' => '404 not found'], 404);
+        }
+
+        return [
+            'post' => [
+                'id' => $post->id,
+                'title' => $post->title,
+                'cover' => $post->cover,
+                'createdAt' => $post->created_at,
+                'authorName' => $post->author->name,
+                'tags' => $post->tags->implode('name', ', '),
+                'body' => $post->body,
+                'slug' => $post->slug,
+            ]
+        ];
+
+    }
+
 }
+
+

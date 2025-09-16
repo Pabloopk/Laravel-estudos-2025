@@ -30,4 +30,6 @@ Route::get('/posts/{slug}/related', [PostController::class, 'getRelatedPosts']);
 
 Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
     Route::get('/posts', [AdminController::class, 'getPosts']);
+    Route::get('/posts/{slug}', [AdminController::class, 'getPost']);
+    Route::delete('/posts/{slug}', [AdminController::class, 'deletePost']);
 });
