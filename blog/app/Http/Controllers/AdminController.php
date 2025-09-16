@@ -52,73 +52,91 @@ class AdminController extends Controller
         ];
     }
 
-    public function getPost(string $slug, Request $request) {
-      $user  = $request->user();
+  public function getPost(string $slug, Request $request) {
+    // Pega o usuário autenticado
+    $user  = $request->user();
 
-        // Logic to retrieve a single post by slug
-       $post = Post::where(['slug' => $slug, 'authorId' => $user->id])->first();
+    // Busca um único post pelo slug e pelo ID do autor (garante que só o dono veja)
+    $post = Post::where(['slug' => $slug, 'authorId' => $user->id])->first();
 
-        if (!$post) {
-            return response()->json(['error' => '404 not found'], 404);
-        }
-
-        return [
-            'post' => [
-                'id' => $post->id,
-                'title' => $post->title,
-                'cover' => $post->cover,
-                'createdAt' => $post->created_at,
-                'authorName' => $post->author->name,
-                'tags' => $post->tags->implode('name', ', '),
-                'body' => $post->body,
-                'slug' => $post->slug,
-            ]
-        ];
+    // Se não encontrar o post, retorna erro 404 em JSON
+    if (!$post) {
+        return response()->json(['error' => '404 not found'], 404);
     }
-    public function deletePost(string $slug, Request $request) {
-        $user  = $request->user();
 
-          // Logic to retrieve a single post by slug
-         $post = Post::where(['slug' => $slug, 'authorId' => $user->id])->first();
+    // Retorna o post encontrado em formato de array (Laravel converte para JSON)
+    return [
+        'post' => [
+            'id' => $post->id, // ID do post
+            'title' => $post->title, // Título
+            'cover' => $post->cover, // Imagem de capa
+            'createdAt' => $post->created_at, // Data de criação
+            'authorName' => $post->author->name, // Nome do autor (relacionamento)
+            'tags' => $post->tags->implode('name', ', '), // Tags separadas por vírgula
+            'body' => $post->body, // Conteúdo
+            'slug' => $post->slug, // Slug do post
+        ]
+    ];
+}
 
-          if (!$post) {
-                return response()->json(['error' => '404 not found'], 404);
-          }
+public function deletePost(string $slug, Request $request) {
+    // Pega o usuário autenticado
+    $user  = $request->user();
 
-          $post->delete();
+    // Busca o post pelo slug e pelo ID do autor
+    $post = Post::where(['slug' => $slug, 'authorId' => $user->id])->first();
 
-          return response()->json(['message' => 'Post deleted successfully'], 200);
-     }
+    // Se não encontrar, retorna erro 404
+    if (!$post) {
+        return response()->json(['error' => '404 not found'], 404);
+    }
 
-     public function createPost(Request $request) {
-        $user = $request->user();
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'body' => 'required|string',
-            //'cover' => 'nullable|url',
-            //'tags' => 'nullable|array',
-            'tags.*' => 'string|max:255',
-            'status' => 'in:draft,published',
-        ]);
+    // Deleta o post encontrado
+    $post->delete();
 
-        $post = new Post();
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
+    // Retorna mensagem de sucesso em JSON
+    return response()->json(['message' => 'Post deleted successfully'], 200);
+}
 
-        //slg com base no titulo
-        $post->slug = Str::slug($post->title). '-' . time();
-        // $post->authorId = $user->id;
-        // $post->status = $request->input('status', 'draft');
-        if ($request->hasFile('cover')) {
-            $file = $request->file('cover');
-                if (!in_array($file->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
-                    return response()->json(['error' => 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.'], 400);
-                }
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads'), $filename);
+public function createPost(Request $request) {
+    // Pega o usuário autenticado
+    $user = $request->user();
 
+    // Valida os dados enviados na requisição
+    $request->validate([
+        'title' => 'required|string|max:255', // título obrigatório, até 255 caracteres
+        'body' => 'required|string', // corpo obrigatório
+        //'cover' => 'nullable|url', // (comentado) capa opcional em formato de URL
+        //'tags' => 'nullable|array', // (comentado) tags opcionais como array
+        'tags.*' => 'string|max:255', // cada tag deve ser string de até 255 caracteres
+        'status' => 'in:draft,published', // status deve ser "draft" ou "published"
+    ]);
+
+    // Cria um novo objeto Post
+    $post = new Post();
+    $post->title = $request->input('title'); // define o título
+    $post->body = $request->input('body'); // define o corpo do texto
+
+    // Gera o slug baseado no título + timestamp para evitar duplicidade
+    $post->slug = Str::slug($post->title). '-' . time();
+
+    // Verifica se foi enviado um arquivo de capa
+    if ($request->hasFile('cover')) {
+        $file = $request->file('cover');
+
+        // Confere se a extensão do arquivo é válida (só imagens permitidas)
+        if (!in_array($file->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
+            return response()->json(['error' => 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.'], 400);
         }
-     }
+
+        // Cria um nome único para o arquivo baseado no timestamp
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+
+        // Move o arquivo para a pasta "public/uploads"
+        $file->move(public_path('uploads'), $filename);
+    }
+}
+
 
 }
 
