@@ -278,15 +278,15 @@ public function createPost(Request $request) {
                 return response()->json([
                     'message' => 'Post updated successfully',
                     'post' => [
-                        'id'         => $post->id,
-                        'title'      => $post->title,
-                        'cover'      => $post->cover,
-                        'createdAt'  => $post->created_at,
+                        'id' => $post->id,
+                        'title' => $post->title,
+                        'cover' => $post->cover,
+                        'createdAt' => $post->created_at,
                         'authorName' => $post->author->name,
-                        'tags'       => method_exists($post, 'tags') ? $post->tags->implode('name', ', ') : null,
-                        'body'       => $post->body,
-                        'slug'       => $post->slug,
-                        'status'     => $post->status ?? null,
+                        'tags'  => method_exists($post, 'tags') ? $post->tags->implode('name', ', ') : null,
+                        'body' => $post->body,
+                        'slug'=> $post->slug,
+                        'status'=> $post->status ?? null,
                     ],
                 ], 200);
             }
